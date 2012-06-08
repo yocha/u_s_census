@@ -11,13 +11,34 @@ module USCensus
 	}
 
 	# Get 2010 Census SF1 data for the states by using
-	# <tt>census_summary_2010</tt> and pass it key and list of states (FIPS codes).
+	# <tt>census_summary_2010</tt> and pass it key,  list of states (FIPS codes or
+	# state names) and api_variables
+	# (http://www.census.gov/developers/data/sf1.xml).
 	# This will return array of hashes.
-	def self.census_summary_2010(key, states = "*")
+	#
+	# <tt>USCensus::census_summary_2010(key, ["California"], ["P0010001"])</tt>
+	#
+	def self.census_summary_2010(key, states = "*", api_variables = ["P0010001"])
 		states = fips_codes(states)
-		url = HOST + "sf1?key=#{key}&get=P0010001,NAME&for=state:#{states}"
+		api_variables = api_variables.join(',')
+		url = HOST + "sf1?key=#{key}&get=#{api_variables},NAME&for=state:#{states}"
 		output = open(url)
 		return parse(output, key)
+	end
+	# Get ACS 2010 5 year data for for the states
+	# <tt>census_acs_2010</tt> and pass it key,  list of states (FIPS codes or
+	# state names) and api_variables
+	# (http://www.census.gov/developers/data/2010acs5_variables.xml).
+	# This will return array of hashes.
+	#
+	# <tt>USCensus::census_acs_2010(key, ["California"], ["B02001_001E"])</tt>
+	#
+	def self.census_acs_2010(key, states = "*", api_variables = ["B02001_001E"])
+		states = fips_codes(states)
+		api_variables = api_variables.join(',')
+		url = HOST + "acs5?key=#{key}&get=B02001_001E,NAME&for=state:#{states}"
+		output = open(url)
+		return parse(output,key)
 	end
 	private
 	def self.fips_codes(states)
