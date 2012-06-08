@@ -4,10 +4,9 @@ require 'yaml'
 require "u_s_census/version"
 
 module USCensus
-	US_CENSUS_KEY = "88d4b914095783c713c31da193f7469964386c68" 
   HOST = "http://thedataweb.rm.census.gov/data/2010/"
 
-	def self.census_summary_2010(key = US_CENSUS_KEY, state = "*")
+	def self.census_summary_2010(key, state = "*")
 		url = HOST + "sf1?key=#{key}&get=P0010001,NAME&for=state:#{state}"
 		output = open(url)
 		return parse(output, key)
