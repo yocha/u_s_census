@@ -5,3 +5,7 @@
 ## v0.0.3
 
 * clean up
+
+## v0.0.4
+
+* bugfix 

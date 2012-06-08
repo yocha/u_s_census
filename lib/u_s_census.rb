@@ -36,7 +36,7 @@ module USCensus
 	def self.census_acs_2010(key, states = "*", api_variables = ["B02001_001E"])
 		states = fips_codes(states)
 		api_variables = api_variables.join(',')
-		url = HOST + "acs5?key=#{key}&get=B02001_001E,NAME&for=state:#{states}"
+		url = HOST + "acs5?key=#{key}&get=#{api_variables},NAME&for=state:#{states}"
 		output = open(url)
 		return parse(output,key)
 	end
