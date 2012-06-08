@@ -6,6 +6,9 @@ require "u_s_census/version"
 module USCensus
   HOST = "http://thedataweb.rm.census.gov/data/2010/"
 
+	# Get 2010 Census SF1 data for the states by using
+	# <tt>census_summary_2010</tt> and pass it key and list of states.
+	# This will return array of hashes.
 	def self.census_summary_2010(key, state = "*")
 		url = HOST + "sf1?key=#{key}&get=P0010001,NAME&for=state:#{state}"
 		output = open(url)
